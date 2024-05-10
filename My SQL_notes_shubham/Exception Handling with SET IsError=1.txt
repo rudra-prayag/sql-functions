@@ -1,0 +1,31 @@
+# Exception Handling with SET IsError=1
+
+CREATE TABLE Employee 
+(
+     EmpID INT PRIMARY KEY,
+     EmpName VARCHAR(50),
+     EmailAddress VARCHAR(50)    
+);
+
+DELIMITER //
+CREATE PROCEDURE InsertEmployeeDetails
+(
+     InputEmpID INTEGER,
+    InputEmpName VARCHAR(50),
+    InputEmailAddress VARCHAR(50),
+    OUT IsError INT
+)
+
+BEGIN 
+    DECLARE CONTINUE HANDLER FOR SQLEXCEPTION SET IsError=1;
+	INSERT INTO Employees (EmpID, EmpName, EmailAddress)
+	VALUES
+	(InputEmpID, InputEmpName, InputEmailAddress);    
+ 
+ SELECT *FROM Employee;
+END 
+// DELIMITER ;
+
+
+CALL InsertEmployeeDetails (1,'Anvesh','anvesh@gmail.com',@IsError);
+SELECT @IsError;

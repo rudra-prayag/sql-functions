@@ -1,0 +1,17 @@
+# IN Parameter
+DELIMITER //
+
+CREATE PROCEDURE GetOfficeByCountry(IN country_parameter VARCHAR(200))
+BEGIN
+
+	SELECT customernumber, customername, country 
+    FROM customers 
+    WHERE country = country_parameter;
+
+END //
+
+DELIMITER ;
+
+CALL GETOFFICEBYCOUNTRY();
+CALL GETOFFICEBYCOUNTRY('australia');
+CALL GETOFFICEBYCOUNTRY('Denmark');

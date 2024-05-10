@@ -1,0 +1,29 @@
+DELIMITER //
+CREATE PROCEDURE getFullName ( INOUT fullNameList VARCHAR(4000) )
+
+BEGIN
+
+  DECLARE finished INTEGER DEFAULT 0;
+  DECLARE fullName VARCHAR(100) DEFAULT "";
+  
+  DECLARE curName CURSOR FOR SELECT CONCAT(contactFirstName ,',' , contactLastName) FROM customers LIMIT 10;
+  
+  DECLARE CONTINUE HANDLER FOR NOT FOUND SET finished = 1;
+  
+  OPEN curName;
+   
+      Shubham: LOOP
+                              FETCH curName INTO fullName;
+                              IF finished = 1 THEN LEAVE Shubham;
+                              END IF;
+                              SET fullNameList = CONCAT(fullName,";",fullNameList);
+	  END LOOP Shubham;
+               
+ CLOSE curName;
+    
+END //
+
+
+SET @xyz = "";
+CALL getFullName(@xyz);
+SELECT @xyz;

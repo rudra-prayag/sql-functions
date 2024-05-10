@@ -1,0 +1,14 @@
+# Stored Procedure
+
+DELIMITER //
+
+CREATE PROCEDURE myprocedure ()
+BEGIN
+
+	SELECT * FROM ORDERDETAILS;
+    
+END //
+
+DELIMITER //
+
+CALL myprocedure();

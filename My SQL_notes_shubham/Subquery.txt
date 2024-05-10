@@ -1,0 +1,87 @@
+SELECT 
+    lastName, firstName
+FROM
+    employees
+WHERE
+    officeCode IN (SELECT 
+            officeCode
+        FROM
+            offices
+        WHERE
+            country = 'USA');
+
+
+SELECT 
+    customerNumber, 
+    checkNumber, 
+    amount
+FROM
+    payments
+WHERE
+    amount = (SELECT MAX(amount) FROM payments);
+
+
+
+SELECT 
+    customerNumber, 
+    checkNumber, 
+    amount
+FROM
+    payments
+WHERE
+    amount > (SELECT 
+            AVG(amount)
+        FROM
+            payments);
+
+
+
+SELECT 
+    customerName
+FROM
+    customers
+WHERE
+    customerNumber NOT IN (SELECT DISTINCT
+            customerNumber
+        FROM
+            orders);
+
+
+
+
+
+SELECT 
+    productname, 
+    buyprice
+FROM
+    products p1
+WHERE
+    buyprice > (SELECT 
+            AVG(buyprice)
+        FROM
+            products
+        WHERE
+            productline = p1.productline)
+
+
+
+
+
+SELECT 
+    customerNumber, 
+    customerName
+FROM
+    customers
+WHERE
+    EXISTS(SELECT 
+				orderNumber, 
+				SUM(priceEach * quantityOrdered) total
+				FROM
+				orderdetails
+				INNER JOIN
+				orders USING (orderNumber)
+				GROUP BY orderNumber
+				HAVING SUM(priceEach * quantityOrdered) > 60000
+				);
+
+

@@ -1,0 +1,26 @@
+# OUT Parameter
+DELIMITER //
+
+CREATE PROCEDURE GetOrderCountByProcedure(IN order_status_parameter VARCHAR(50), OUT total INT )
+BEGIN
+
+	SELECT COUNT(ordernumber) INTO total 
+    FROM orders 
+    WHERE status = order_status_parameter;
+    
+END //
+
+DELIMITER //
+
+
+CALL GetOrderCountByProcedure('Shipped', @total);
+SELECT @total AS Total_Rows;
+
+CALL GetOrderCountByProcedure('In Process', @total);
+SELECT @total AS Total_Rows;
+
+CALL GetOrderCountByProcedure('Cancelled', @total);
+SELECT @total AS Total_Rows;
+
+CALL GetOrderCountByProcedure('On Hold', @total);
+SELECT @total AS Total_Rows;

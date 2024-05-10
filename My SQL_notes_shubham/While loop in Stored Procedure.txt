@@ -1,0 +1,21 @@
+DELIMITER //
+
+CREATE PROCEDURE while_loop ( starting_value INT )
+
+BEGIN
+
+   DECLARE income INT;
+
+   SET income = 0;
+
+   label1: WHILE income <= 3000 DO
+     SET income = income + starting_value;
+   END WHILE label1;
+
+SELECT income;
+
+END //
+
+DELIMITER ;
+
+CALL while_loop(4000);

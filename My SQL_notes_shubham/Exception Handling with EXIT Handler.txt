@@ -1,0 +1,30 @@
+# Exception Handling with EXIT Handler
+
+CREATE TABLE Employee 
+(
+     EmpID INT PRIMARY KEY,
+     EmpName VARCHAR(50),
+     EmailAddress VARCHAR(50)    
+);
+
+DELIMITER //
+CREATE PROCEDURE InsertEmployeeDetails
+(
+     InputEmpID INTEGER
+    ,InputEmpName VARCHAR(50)
+    ,InputEmailAddress VARCHAR(50)    
+)
+
+BEGIN 
+    DECLARE EXIT HANDLER FOR SQLEXCEPTION SELECT 'Error occured';
+	INSERT INTO Employee.tbl_EmployeeDetails (EmpID, EmpName, EmailAddress)
+	VALUES
+ (InputEmpID, InputEmpName, InputEmailAddress);    
+ 
+ SELECT *FROM Employee;
+END 
+// DELIMITER ;
+
+
+CALL InsertEmployeeDetails (1,'Anvesh','anvesh@gmail.com');
+CALL InsertEmployeeDetails (1,'Roy','Roy@gmail.com');

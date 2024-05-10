@@ -1,0 +1,105 @@
+# 1) ROW_NUMBER()
+SELECT ROW_NUMBER() OVER () AS Row_No, 
+orderNumber, productCode, quantityOrdered, priceEach, orderLineNumber
+ FROM orderdetails;
+
+SELECT ROW_NUMBER() OVER (PARTITION BY ordernumber) AS Row_No, 
+orderNumber, productCode, quantityOrdered, priceEach, orderLineNumber
+ FROM orderdetails;
+ 
+ /*--------------------------------------------------------------------------------------------------------*/
+ 
+ # 2) RANK()
+SELECT RANK() OVER() AS Ranking,
+orderNumber, productCode, quantityOrdered, priceEach, orderLineNumber
+ FROM orderdetails;
+ 
+SELECT RANK() OVER(ORDER BY quantityOrdered) AS Ranking,
+orderNumber, productCode, quantityOrdered, priceEach, orderLineNumber
+ FROM orderdetails;
+ 
+ /*--------------------------------------------------------------------------------------------------------*/
+ 
+ # 3) DENSE_RANK()
+SELECT DENSE_RANK() OVER(ORDER BY quantityOrdered) AS Dense_Ranking,
+orderNumber, productCode, quantityOrdered, priceEach, orderLineNumber
+ FROM orderdetails;
+ 
+ /*--------------------------------------------------------------------------------------------------------*/
+ 
+ # 4) PERCENT_RANK()
+SELECT PERCENT_RANK() OVER(PARTITION BY quantityOrdered ORDER BY ordernumber) AS Percent_Ranking,
+orderNumber, productCode, quantityOrdered, priceEach, orderLineNumber
+ FROM orderdetails;
+ 
+ /*--------------------------------------------------------------------------------------------------------*/
+ 
+ # 5) CUME_DIST()
+ SELECT CUME_DIST() OVER(PARTITION BY quantityOrdered ORDER BY ordernumber) AS Cumulative_Distr,
+orderNumber, productCode, quantityOrdered, priceEach, orderLineNumber
+ FROM orderdetails;
+ 
+ /*--------------------------------------------------------------------------------------------------------*/
+ 
+ # 6) NTILE()
+ SELECT NTILE(4) OVER(ORDER BY ordernumber) AS NTILE_Function,
+orderNumber, productCode, quantityOrdered, priceEach, orderLineNumber
+ FROM orderdetails;
+ 
+ /*--------------------------------------------------------------------------------------------------------*/
+ 
+ # 7) LAG()
+SELECT LAG(quantityOrdered,2) OVER() AS Previous_Value,
+orderNumber, productCode, quantityOrdered, priceEach, orderLineNumber
+ FROM orderdetails;
+ 
+SELECT LAG(quantityOrdered,1) OVER(PARTITION BY ordernumber) AS Previous_Value,
+orderNumber, productCode, quantityOrdered, priceEach, orderLineNumber
+ FROM orderdetails;
+ 
+ /*--------------------------------------------------------------------------------------------------------*/
+ 
+ # 8) LEAD()
+SELECT LEAD(quantityOrdered,1) OVER() AS Next_Value,
+orderNumber, productCode, quantityOrdered, priceEach, orderLineNumber
+ FROM orderdetails;
+ 
+SELECT LEAD(quantityOrdered,1) OVER(PARTITION BY ordernumber) AS Next_Value,
+orderNumber, productCode, quantityOrdered, priceEach, orderLineNumber
+ FROM orderdetails;
+ 
+ /*--------------------------------------------------------------------------------------------------------*/
+ 
+ # 9) FIRST_VALUE()
+SELECT FIRST_VALUE(quantityOrdered) OVER() AS First_Value_,
+orderNumber, productCode, quantityOrdered, priceEach, orderLineNumber
+ FROM orderdetails;
+ 
+SELECT FIRST_VALUE(quantityOrdered) OVER(PARTITION BY priceEach) AS First_Value_,
+orderNumber, productCode, quantityOrdered, priceEach, orderLineNumber
+ FROM orderdetails;
+ 
+ /*--------------------------------------------------------------------------------------------------------*/
+ 
+ # 10) LAST_VALUE()
+SELECT LAST_VALUE(quantityOrdered) OVER() AS Last_Value_,
+orderNumber, productCode, quantityOrdered, priceEach, orderLineNumber
+ FROM orderdetails;
+ 
+SELECT LAST_VALUE(quantityOrdered) OVER(PARTITION BY ordernumber) AS Last_Value_,
+orderNumber, productCode, quantityOrdered, priceEach, orderLineNumber
+ FROM orderdetails;
+ 
+ /*--------------------------------------------------------------------------------------------------------*/
+ 
+ # 11) NTH_VALUE()
+SELECT NTH_VALUE(quantityOrdered, 7) OVER() AS Nth_Value_,
+orderNumber, productCode, quantityOrdered, priceEach, orderLineNumber
+ FROM orderdetails;
+ 
+SELECT NTH_VALUE(quantityOrdered, 7) OVER(PARTITION BY ordernumber) AS Nth_Value_,
+orderNumber, productCode, quantityOrdered, priceEach, orderLineNumber
+ FROM orderdetails;
+ 
+ /*--------------------------------------------------------------------------------------------------------*/
+ 

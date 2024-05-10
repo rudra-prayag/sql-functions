@@ -1,0 +1,21 @@
+# IN-OUT Parameter
+DELIMITER //
+
+CREATE PROCEDURE SetCounter(INOUT counter INT,  IN inc INT)
+BEGIN
+
+	SET counter = counter + inc;
+    
+END //
+
+DELIMITER //
+
+SET @counter = 1;
+CALL SetCounter(@counter,1); 
+SELECT @counter; 
+
+CALL SetCounter(@counter,1); 
+SELECT @counter; 
+
+CALL SetCounter(@counter,5); 
+SELECT @counter; 

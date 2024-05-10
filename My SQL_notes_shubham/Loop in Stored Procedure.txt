@@ -1,0 +1,22 @@
+DELIMITER //
+CREATE PROCEDURE MyLoop()
+
+ BEGIN
+ 
+ DECLARE x INT;
+SET x = 0;
+
+abc: LOOP
+		SET x = x + 1;
+		SELECT x ;
+        
+		 IF x = 5 THEN LEAVE abc;
+		 END IF;
+END LOOP abc;
+
+SELECT x;
+
+END //
+
+
+CALL MyLoop();

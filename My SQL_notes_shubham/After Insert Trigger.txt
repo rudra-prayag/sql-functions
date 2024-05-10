@@ -1,0 +1,35 @@
+CREATE TABLE emp(
+ID INT PRIMARY KEY AUTO_INCREMENT,
+Name VARCHAR(20),
+Age INT
+);
+
+CREATE TABLE Emp_Audit(
+ID INT PRIMARY KEY AUTO_INCREMENT,
+Audit_Description VARCHAR(500)
+);
+
+DELIMITER //
+CREATE TRIGGER AfterInsertEmp
+AFTER INSERT ON emp
+FOR EACH ROW
+BEGIN
+INSERT INTO emp_audit VALUES
+(NULL, CONCAT('A row has been inserted in Employee table at ', DATE_FORMAT(NOW(), '%d-%m-%Y %h:%i:%s %p')));
+END //
+
+SELECT * FROM EMP;
+SELECT * FROM EMP_AUDIT;
+
+INSERT INTO EMP VALUES(NULL, 'Anil', 32);
+
+INSERT INTO EMP VALUES(NULL, 'Kedar', 25);
+
+
+
+
+
+
+
+
+
